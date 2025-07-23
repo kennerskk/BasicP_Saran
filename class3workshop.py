@@ -29,6 +29,7 @@ while True:
             if Boss_Saran_health == 0:
                 print("ยินดีด้วยคุณกำจัดบอสสรันลงแล้ว")
                 win = True
+                break
             if Boss_Saran_health < 0:
                 print("เจ้ามนุษย์หน้าโง่ ข้ายังไม่ตาย")
                 Boss_Saran_health = 20
