@@ -25,18 +25,29 @@ def calculate_price(base_price, genre):
     # ถ้าไม่ใช่ คืนราคาเดิม
 
 # ฟังก์ชันสำหรับการซื้อบัตรชมหนัง
-def buy_ticket(movie_list):
-    pass
-    # TODO: 
-    # 1. เรียก show_movies เพื่อแสดงรายชื่อหนัง
-    # 2. รับค่าตัวเลือกหนังจากผู้ใช้ (1-5)
-    # 3. รับอายุผู้ใช้
-    # 4. ตรวจสอบอายุผ่าน check_age
-    #    - ถ้าไม่ผ่าน ให้แสดงข้อความว่าอายุน้อยเกินไปและ return ออกจากฟังก์ชัน
-    # 5. ให้ผู้ใช้เลือกเสียงพากย์ (1 = พากย์ไทย, 2 = Soundtrack)
-    # 6. คำนวณราคาตั๋วโดยใช้ calculate_price
-    # 7. แสดงผลการซื้อบัตร พร้อมชื่อหนัง, เสียงที่เลือก, ราคาตั๋ว
-
+def buy_ticket(movies):
+    show_movies(movies)
+    select = int(input("what movie?"))
+    age = int(input("input ur age"))
+    if check_age(age,select,movies):
+            basicprice = movies[select-1]["ticket_price"]
+            name = movies[select-1]["movie_name"]
+            totalprice = calculate_price(basicprice,movies[select-1]["genre"])
+            sub = int(input("1.subthai 2.thaidub"))
+            tribe = ""
+            if sub == 1:
+                tribe = "subthai"
+            elif sub == 2:
+                tribe = "thaidub"
+            print(f"""
+    ยืนยันการซื้อ
+    ดูเรื่อง {name}
+    ชนิด {tribe}
+    ราคา {totalprice}
+    
+""")
+    else:
+                print("อายุไม่ผ่านเกณฑ์")
 def main():
     movies = [
         {'movie_name': 'Avengers Endgame', 'ticket_price': 300, 'genre': 'Action', 'age_restriction': '13'},
@@ -50,40 +61,5 @@ def main():
         if choice == 1:
             show_movies(movies)
         if choice == 2:
-            show_movies(movies)
-            select = int(input("what movie?"))
-            age = int(input("input ur age"))
-            if check_age(age,select,movies):
-                basicprice = movies[select-1]["ticket_price"]
-                name = movies[select-1]["movie_name"]
-                totalprice = calculate_price(basicprice,movies[select-1]["genre"])
-                sub = int(input("1.subthai 2.thaidub"))
-                tribe = ""
-                if sub == 1:
-                    tribe = "subthai"
-                elif sub == 2:
-                    tribe = "thaidub"
-                print(f"""
-    ยืนยันการซื้อ
-    ดูเรื่อง {name}
-    ชนิด {tribe}
-    ราคา {totalprice}
-    
-""")
-            else:
-                print("อายุไม่ผ่านเกณฑ์")
-                
-                
-
-    # TODO: แสดงเมนูให้ผู้ใช้เลือก
-    # 1. แสดงหนังทั้งหมด
-    # 2. ซื้อตั๋วหนัง
-
-
-    # TODO: ตรวจสอบเมนูที่เลือก
-    # ถ้าเลือก 1 ให้เรียก show_movies พร้อมส่ง movies
-    # ถ้าเลือก 2 ให้เรียก buy_ticket พร้อมส่ง movies
-    # ถ้าเลือกอื่น ให้แสดงข้อความว่าเมนูไม่ถูกต้อง
-
-# เรียก main เพื่อเริ่มโปรแกรม
+             buy_ticket(movies)          
 main()
